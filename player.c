@@ -66,7 +66,7 @@ void deleteContactById(int id, int *p_der, char t_nom[100][31], char t_tel[100][
         strcpy(t_nom[i], t_nom[i+1]);
         strcpy(t_tel[i], t_tel[i+1]);
     }
-    // décrémente l'id du main
+    // décrémente la variable der du main
     (*p_der)--;
 }
 

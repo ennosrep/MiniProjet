@@ -79,21 +79,27 @@ int main(void) {
                 break;
             // Rechercher un contact par nom
             case 4 : 
-                printf("Veuillez saisir le nom du contact à rechercher : ");
-                readName(nom);
-                // Recherche du contact
-                id = searchContactByName(der, nom, t_nom);
-                if (id != -1) printf("\nCe contact est le n°%d : %s - %s\n", id+1, t_nom[id], t_tel[id]);
-                else printf("\nDésolé, ce contact n'existe pas.\n");
+                if (der == 0) printf ("\nIl n'y a aucun contact enregistré.\n");
+                else {
+                    printf("Veuillez saisir le nom du contact à rechercher : ");
+                    readName(nom);
+                    // Recherche du contact
+                    id = searchContactByName(der, nom, t_nom);
+                    if (id != -1) printf("\nCe contact est le n°%d : %s - %s\n", id+1, t_nom[id], t_tel[id]);
+                    else printf("\nDésolé, ce contact n'existe pas.\n");
+                }
                 break;
             // Rechercher un contact par tel
             case 5 : 
-                printf("Veuillez saisir le numéro de téléphone du contact à rechercher : ");
-                readTel(tel);
-                // Recherche du contact
-                id = searchContactByTel(der, tel, t_tel);
-                if (id != -1) printf("\nCe contact est le n°%d : %s - %s\n", id+1, t_nom[id], t_tel[id]);
-                else printf("\nDésolé, ce contact n'existe pas.\n");
+                if (der == 0) printf ("\nIl n'y a aucun contact enregistré.\n");
+                else {
+                    printf("Veuillez saisir le numéro de téléphone du contact à rechercher : ");
+                    readTel(tel);
+                    // Recherche du contact
+                    id = searchContactByTel(der, tel, t_tel);
+                    if (id != -1) printf("\nCe contact est le n°%d : %s - %s\n", id+1, t_nom[id], t_tel[id]);
+                    else printf("\nDésolé, ce contact n'existe pas.\n");
+                }
                 break;
             // Montrer tous les contacts
             case 6 : 

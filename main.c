@@ -49,27 +49,33 @@ int main(void) {
                 break;
             // Supprimer un contact par nom
             case 2 : 
-                printf("Veuillez saisir le nom du contact à supprimer : ");
-                readName(nom);
-                // Recherche du contact
-                id = searchContactByName(der, nom, t_nom);
-                if (id != -1) {
-                    // Suppression du contact
-                    deleteContactById(id, &der, t_nom, t_tel);
-                    printf("\nCe contact a été supprimé.\n");
-                } else printf("\nDésolé, ce contact n'existe pas.\n");
+                if (der == 0) printf ("\nIl n'y a aucun contact enregistré.\n");
+                else {
+                    printf("Veuillez saisir le nom du contact à supprimer : ");
+                    readName(nom);
+                    // Recherche du contact
+                    id = searchContactByName(der, nom, t_nom);
+                    if (id != -1) {
+                        // Suppression du contact
+                        deleteContactById(id, &der, t_nom, t_tel);
+                        printf("\nCe contact a été supprimé.\n");
+                    } else printf("\nDésolé, ce contact n'existe pas.\n");
+                }        
                 break;
             // Supprimer un contact par tel
             case 3 : 
-                printf("Veuillez saisir le numéro de téléphone du contact à supprimer : ");
-                readTel(tel);
-                // Recherche du contact
-                id = searchContactByTel(der, tel, t_tel);
-                if (id != -1) {
-                    // Suppression du contact
-                    deleteContactById(id, &der, t_nom, t_tel);
-                    printf("\nCe contact a été supprimé.\n");
-                } else printf("\nDésolé, ce contact n'existe pas.\n");
+                if (der == 0) printf ("\nIl n'y a aucun contact enregistré.\n");
+                else {
+                    printf("Veuillez saisir le numéro de téléphone du contact à supprimer : ");
+                    readTel(tel);
+                    // Recherche du contact
+                    id = searchContactByTel(der, tel, t_tel);
+                    if (id != -1) {
+                        // Suppression du contact
+                        deleteContactById(id, &der, t_nom, t_tel);
+                        printf("\nCe contact a été supprimé.\n");
+                    } else printf("\nDésolé, ce contact n'existe pas.\n");
+                }
                 break;
             // Rechercher un contact par nom
             case 4 : 

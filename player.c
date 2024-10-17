@@ -72,8 +72,10 @@ void deleteContactById(int id, int *p_der, char t_nom[100][31], char t_tel[100][
 
 // Fonction pour montrer tous les contacts
 void showAllContacts(int der, char t_nom[100][31], char t_tel[100][11]) {
-    printf("\nListe des contacts :\n");
-    for (int i = 0; i < der; i++) {
+    if (der == 0) printf ("\nIl n'y a aucun contact enregistré.\n");
+    else {
+        printf("\nListe des contacts :\n");
+        for (int i = 0; i < der; i++)
         printf("%d. %s - %s\n", i+1, t_nom[i], t_tel[i]);
     }
 }

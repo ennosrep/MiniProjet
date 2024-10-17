@@ -43,39 +43,37 @@ void readTel(char *p_tel) {
     emptyBuffer();
 }
 
-int searchContactByName(int der, char nom[31], char t_nom[100][31]){
+int searchContactByName(int nbContacts, char nom[31], char t_nom[100][31]){
     // Boucle jusqu'à ce que le nom soit trouvé, sinon retourne -1
-    for (int i = 0; i < der; i++) {
+    for (int i = 0; i < nbContacts; i++)
         if (strcmp(nom, t_nom[i]) == 0) return i;
-    }
     return -1;
 }
 
-int searchContactByTel(int der, char tel[11], char t_tel[100][11]){
+int searchContactByTel(int nbContacts, char tel[11], char t_tel[100][11]){
     // Boucle jusqu'à ce que le tel soit trouvé, sinon retourne -1
-    for (int i = 0; i < der; i++) {
+    for (int i = 0; i < nbContacts; i++)
         if (strcmp(tel, t_tel[i]) == 0) return i;
-    }
     return -1;
 }
 
 // Fonction pour supprimer un contact sur les deux tableaux en fonction de l'id
-void deleteContactById(int id, int *p_der, char t_nom[100][31], char t_tel[100][11]) {
-    for (int i = id; i < *p_der; i++) {
+void deleteContactById(int id, int *p_nbContacts, char t_nom[100][31], char t_tel[100][11]) {
+    for (int i = id; i < *p_nbContacts; i++) {
         // Décale tous les contacts d'une position
         strcpy(t_nom[i], t_nom[i+1]);
         strcpy(t_tel[i], t_tel[i+1]);
     }
-    // décrémente la variable der du main
-    (*p_der)--;
+    // décrémente la variable nbContacts du main
+    (*p_nbContacts)--;
 }
 
 // Fonction pour montrer tous les contacts
-void showAllContacts(int der, char t_nom[100][31], char t_tel[100][11]) {
-    if (der == 0) printf ("\nIl n'y a aucun contact enregistré.\n");
+void showAllContacts(int nbContacts, char t_nom[100][31], char t_tel[100][11]) {
+    if (nbContacts == 0) printf ("\nIl n'y a aucun contact enregistré.\n");
     else {
         printf("\nListe des contacts :\n");
-        for (int i = 0; i < der; i++)
-        printf("%d. %s - %s\n", i+1, t_nom[i], t_tel[i]);
+        for (int i = 0; i < nbContacts; i++)
+            printf("%d. %s - %s\n", i+1, t_nom[i], t_tel[i]);
     }
 }

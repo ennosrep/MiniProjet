@@ -59,7 +59,7 @@ int searchContactByTel(int nbContacts, char tel[11], char t_tel[100][11]){
 
 // Fonction pour supprimer un contact sur les deux tableaux en fonction de l'id
 void deleteContactById(int id, int *p_nbContacts, char t_nom[100][31], char t_tel[100][11]) {
-    for (int i = id; i < *p_nbContacts; i++) {
+    for (int i = id; i < *p_nbContacts-1; i++) {
         // Décale tous les contacts d'une position
         strcpy(t_nom[i], t_nom[i+1]);
         strcpy(t_tel[i], t_tel[i+1]);

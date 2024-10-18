@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <regex.h>
+#include "player.h"
 
 // --------------------
 //      Fonctions 
@@ -43,37 +44,29 @@ void readTel(char *p_tel) {
     emptyBuffer();
 }
 
-int searchContactByName(int nbContacts, char nom[31], char t_nom[100][31]){
+int searchContactByName(int nbContacts, char nom[31], Contact t_contact[100]){
     // Boucle jusqu'à ce que le nom soit trouvé, sinon retourne -1
     for (int i = 0; i < nbContacts; i++)
-        if (strcmp(nom, t_nom[i]) == 0) return i;
+        if (strcmp(nom, t_contact[i].nom) == 0)
+            return i;
     return -1;
 }
 
-int searchContactByTel(int nbContacts, char tel[11], char t_tel[100][11]){
+int searchContactByTel(int nbContacts, char tel[11], Contact t_contact[100]){
     // Boucle jusqu'à ce que le tel soit trouvé, sinon retourne -1
     for (int i = 0; i < nbContacts; i++)
-        if (strcmp(tel, t_tel[i]) == 0) return i;
+        if (strcmp(tel, t_contact[i].tel) == 0)
+            return i;
     return -1;
 }
 
 // Fonction pour supprimer un contact sur les deux tableaux en fonction de l'id
-void deleteContactById(int id, int *p_nbContacts, char t_nom[100][31], char t_tel[100][11]) {
-    for (int i = id; i < *p_nbContacts-1; i++) {
-        // Décale tous les contacts d'une position
-        strcpy(t_nom[i], t_nom[i+1]);
-        strcpy(t_tel[i], t_tel[i+1]);
-    }
+void deleteContactById(int id, int *p_nbContacts, Contact t_contact[100]) {
     // décrémente la variable nbContacts du main
     (*p_nbContacts)--;
-}
-
-// Fonction pour montrer tous les contacts
-void showAllContacts(int nbContacts, char t_nom[100][31], char t_tel[100][11]) {
-    if (nbContacts == 0) printf ("\nIl n'y a aucun contact enregistré.\n");
-    else {
-        printf("\nListe des contacts :\n");
-        for (int i = 0; i < nbContacts; i++)
-            printf("%d. %s - %s\n", i+1, t_nom[i], t_tel[i]);
-    }
+    // Décale tous les contacts d'une position 
+    for (int i = id; i < *p_nbContacts; i++) {        
+        strcpy(t_contact[i].nom, t_contact[i+1].nom);
+        strcpy(t_contact[i].tel, t_contact[i+1].tel);
+    }    
 }

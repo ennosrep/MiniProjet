@@ -9,10 +9,8 @@
 // ----------------------------------------
 
 int main(void) {
-    char nom[31];
-    char tel[11];
-    char t_nom[100][31];
-    char t_tel[100][11];
+    char nom[31], tel[11];
+    Contact t_contact[100];
     int choix, id, nbContacts = 0;
 
     do {
@@ -32,19 +30,22 @@ int main(void) {
         switch(choix) {
             // Ajouter un contact (nom, tel)
             case 1 : 
-                if(nbContacts == 100) printf("Vous avez dépassé votre nombre maximum de contacts. Veuillez d'abord supprimer un contact.\n");
+                if(nbContacts == 100)
+                    printf("Vous avez dépassé votre nombre maximum de contacts. Veuillez d'abord supprimer un contact.\n");
                 else {
                     printf("Veuillez saisir le nom du contact à créer : ");
                     readName(nom);  
-                    if (searchContactByName(nbContacts, nom, t_nom)!=-1) printf("\nErreur : ce nom est déjà dans la liste des contacts.\n");
+                    if (searchContactByName(nbContacts, nom, t_contact)!=-1)
+                        printf("\nErreur : ce nom est déjà dans la liste des contacts.\n");
                     else {
                         printf("Veuillez saisir le numéro de téléphone : ");
                         readTel(tel);
-                        if (searchContactByTel(nbContacts, tel, t_tel)!=-1) printf("\nErreur : ce numéro de téléphone est déjà dans la liste des contacts.\n");
+                        if (searchContactByTel(nbContacts, tel, t_contact)!=-1)
+                            printf("\nErreur : ce numéro de téléphone est déjà dans la liste des contacts.\n");
                         else {  
                             // Création du contact
-                            strcpy(t_nom[nbContacts], nom);
-                            strcpy(t_tel[nbContacts], tel);
+                            strcpy(t_contact[nbContacts].nom, nom);
+                            strcpy(t_contact[nbContacts].tel, tel);
                             printf("\nCe contact a été créé : %s - %s\n", nom, tel);
                             // Incrémentation de la variable nbContacts 
                             nbContacts++;
@@ -54,30 +55,32 @@ int main(void) {
                 break;
             // Supprimer un contact par nom
             case 2 : 
-                if (nbContacts == 0) printf ("\nIl n'y a aucun contact enregistré.\n");
+                if (nbContacts == 0)
+                    printf ("\nIl n'y a aucun contact enregistré.\n");
                 else {
                     printf("Veuillez saisir le nom du contact à supprimer : ");
                     readName(nom);
                     // Recherche du contact
-                    id = searchContactByName(nbContacts, nom, t_nom);
+                    id = searchContactByName(nbContacts, nom, t_contact);
                     if (id != -1) {
                         // Suppression du contact
-                        deleteContactById(id, &nbContacts, t_nom, t_tel);
+                        deleteContactById(id, &nbContacts, t_contact);
                         printf("\nCe contact a été supprimé.\n");
                     } else printf("\nDésolé, ce contact n'existe pas.\n");
                 }        
                 break;
             // Supprimer un contact par tel
             case 3 : 
-                if (nbContacts == 0) printf ("\nIl n'y a aucun contact enregistré.\n");
+                if (nbContacts == 0)
+                    printf ("\nIl n'y a aucun contact enregistré.\n");
                 else {
                     printf("Veuillez saisir le numéro de téléphone du contact à supprimer : ");
                     readTel(tel);
                     // Recherche du contact
-                    id = searchContactByTel(nbContacts, tel, t_tel);
+                    id = searchContactByTel(nbContacts, tel, t_contact);
                     if (id != -1) {
                         // Suppression du contact
-                        deleteContactById(id, &nbContacts, t_nom, t_tel);
+                        deleteContactById(id, &nbContacts, t_contact);
                         printf("\nCe contact a été supprimé.\n");
                     } else printf("\nDésolé, ce contact n'existe pas.\n");
                 }
@@ -89,8 +92,9 @@ int main(void) {
                     printf("Veuillez saisir le nom du contact à rechercher : ");
                     readName(nom);
                     // Recherche du contact
-                    id = searchContactByName(nbContacts, nom, t_nom);
-                    if (id != -1) printf("\nCe contact est le n°%d : %s - %s\n", id+1, t_nom[id], t_tel[id]);
+                    id = searchContactByName(nbContacts, nom, t_contact);
+                    if (id != -1)
+                        printf("\nCe contact est le n°%d : %s - %s\n", id+1, t_contact[id].nom, t_contact[id].tel);
                     else printf("\nDésolé, ce contact n'existe pas.\n");
                 }
                 break;
@@ -101,14 +105,20 @@ int main(void) {
                     printf("Veuillez saisir le numéro de téléphone du contact à rechercher : ");
                     readTel(tel);
                     // Recherche du contact
-                    id = searchContactByTel(nbContacts, tel, t_tel);
-                    if (id != -1) printf("\nCe contact est le n°%d : %s - %s\n", id+1, t_nom[id], t_tel[id]);
+                    id = searchContactByTel(nbContacts, tel, t_contact);
+                    if (id != -1)
+                        printf("\nCe contact est le n°%d : %s - %s\n", id+1, t_contact[id].nom, t_contact[id].tel);
                     else printf("\nDésolé, ce contact n'existe pas.\n");
                 }
                 break;
             // Montrer tous les contacts
             case 6 : 
-                showAllContacts(nbContacts, t_nom, t_tel);
+                if (nbContacts == 0) printf ("\nIl n'y a aucun contact enregistré.\n");
+                else {
+                    printf("\nListe des contacts :\n");
+                    for (int i = 0; i < nbContacts; i++)
+                        printf("%d. %s - %s\n", i+1, t_contact[i].nom, t_contact[i].tel);
+                }
                 break;
         }
 

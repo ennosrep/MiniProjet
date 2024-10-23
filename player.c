@@ -14,11 +14,11 @@ void emptyBuffer(void) {
     while (getchar() != '\n');
 }
 
-void readChoice(int *p_choix) {
+void readChoice(int *p_choix, int nbChoix) {
     // Boucle jusqu'à ce qu'un entier compris entre 1 et 7 soit saisi au clavier 
-    while (scanf("%d", p_choix) != 1 || *p_choix<1 || *p_choix>7) {
+    while (scanf("%d", p_choix) != 1 || *p_choix<1 || *p_choix>nbChoix) {
         emptyBuffer();
-        printf("Merci d'entrer un nombre compris entre 1 et 7 : ");
+        printf("Merci d'entrer un nombre compris entre 1 et %d : ", nbChoix);
     }
     emptyBuffer();
 }
@@ -33,9 +33,10 @@ void readName(char *p_nom) {
 }
 
 void readTel(char *p_tel) {
-    // Boucle jusqu'à ce qu'un numéro de tel à dix chiffres sans espace soit saisi au clavier 
+    // Compilation de l'expression régulière
     regex_t regex;
     regcomp(&regex, "^[0-9]{10}$", REG_EXTENDED);
+    // Boucle jusqu'à ce qu'un numéro de tel à dix chiffres sans espace soit saisi au clavier 
     while (scanf("%10s", p_tel)!= 1 || regexec(&regex, p_tel, 0, NULL, 0)!= 0) {
         emptyBuffer();
         printf("Merci de saisir un numéro de téléphone à dix chiffres sans espace : ");
@@ -60,7 +61,7 @@ int searchContactByTel(int nbContacts, char tel[11], Contact t_contact[100]){
     return -1;
 }
 
-// Fonction pour supprimer un contact sur les deux tableaux en fonction de l'id
+// Fonction pour supprimer un contact en fonction de l'id
 void deleteContactById(int id, int *p_nbContacts, Contact t_contact[100]) {
     // décrémente la variable nbContacts du main
     (*p_nbContacts)--;
